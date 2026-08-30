@@ -27,7 +27,7 @@ app.use(helmet({
 }));
 
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:5173',
+  origin: process.env.CLIENT_URL || true,
   credentials: true
 }));
 
@@ -72,10 +72,15 @@ app.use((err, req, res, next) => {
 });
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`\n==================================================`);
-  console.log(`  VivahaVerse AI Backend API Server Running`);
-  console.log(`  Port: http://localhost:${PORT}`);
-  console.log(`  Health Check: http://localhost:${PORT}/api/health`);
-  console.log(`==================================================\n`);
-});
+
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`\n==================================================`);
+    console.log(`  VivahaVerse AI Backend API Server Running`);
+    console.log(`  Port: http://localhost:${PORT}`);
+    console.log(`  Health Check: http://localhost:${PORT}/api/health`);
+    console.log(`==================================================\n`);
+  });
+}
+
+module.exports = app;

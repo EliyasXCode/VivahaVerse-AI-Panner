@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>VivahaVerse AI – Master Technical Interview Guide</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600;700&display=swap');
+    
+    @page {
+      size: A4;
+      margin: 20mm;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: #241B18;
+      background: #FFFDF9;
+      line-height: 1.6;
+      font-size: 13px;
+      margin: 0;
+      padding: 30px;
+    }
+
+    .header {
+      text-align: center;
+      border-bottom: 2px solid #B99256;
+      padding-bottom: 20px;
+      margin-bottom: 30px;
+    }
+
+    .header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      color: #651F2F;
+      font-size: 32px;
+      margin: 0;
+    }
+
+    .header p {
+      color: #766A64;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+
+    .author-badge {
+      display: inline-block;
+      background: #651F2F;
+      color: #D8C3A3;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 8px;
+    }
+
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      color: #651F2F;
+      font-size: 22px;
+      border-bottom: 1px solid #D8C3A3;
+      padding-bottom: 6px;
+      margin-top: 30px;
+      margin-bottom: 15px;
+      page-break-after: avoid;
+    }
+
+    .qa-card {
+      background: #FFFFFF;
+      border: 1px solid rgba(185, 146, 86, 0.3);
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 18px;
+      box-shadow: 0 2px 8px rgba(101, 31, 47, 0.04);
+      page-break-inside: avoid;
+    }
+
+    .question {
+      font-weight: 700;
+      color: #651F2F;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .answer {
+      color: #333333;
+      font-size: 12.5px;
+      margin-bottom: 10px;
+    }
+
+    .counter-box {
+      background: #FAF6F0;
+      border-left: 4px solid #B99256;
+      padding: 10px 14px;
+      margin-top: 10px;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .counter-title {
+      font-weight: 700;
+      color: #46131E;
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+
+    .counter-answer {
+      color: #444444;
+      font-size: 12px;
+    }
+
+    .cheatsheet-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+      font-size: 12px;
+    }
+
+    .cheatsheet-table th, .cheatsheet-table td {
+      border: 1px solid #D8C3A3;
+      padding: 8px 12px;
+      text-align: left;
+    }
+
+    .cheatsheet-table th {
+      background: #651F2F;
+      color: #FFFFFF;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14px;
+    }
+
+    .print-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #651F2F;
+      color: #B99256;
+      border: none;
+      padding: 10px 20px;
+      font-weight: bold;
+      border-radius: 20px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    @media print {
+      .print-btn { display: none; }
+      body { background: #FFFFFF; padding: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <button class="print-btn" onclick="window.print()">📥 Save / Print as PDF</button>
+
+  <div class="header">
+    <h1>VivahaVerse AI – Master Technical Interview Guide</h1>
+    <p>Complete Full-Stack MERN + Generative AI Interview Questions, Counter-Questions & Answers</p>
+    <div class="author-badge">Created by Wibe Coding</div>
+  </div>
+
+  <!-- SECTION 1 -->
+  <div class="section-title">🏛️ Section 1: Full-Stack MERN Architecture</div>
+
+  <div class="qa-card">
+    <div class="question">Q1: Can you give an architectural overview of your VivahaVerse AI project?</div>
+    <div class="answer">
+      VivahaVerse AI is a production-grade MERN platform for luxury Indian destination wedding planning. It comprises:
+      1. <strong>Frontend Layer</strong>: React 18, Vite, Tailwind CSS, Framer Motion, Context API.
+      2. <strong>Backend Layer</strong>: Node.js & Express API with Helmet, CORS, Rate Limiter, Cookie Parser, and JWT Auth.
+      3. <strong>Database & AI Layer</strong>: MongoDB Atlas storing destination metrics, integrated with <code>@google/genai</code> using <code>gemini-3.7-flash</code> and <code>gemini-3.1-flash-image</code>.
+    </div>
+    <div class="counter-box">
+      <div class="counter-title">💣 Interviewer Counter-Question: "Why decouple AI reasoning from the database instead of letting Gemini query the web?"</div>
+      <div class="counter-answer">
+        Allowing LLMs to search the web leads to pricing hallucinations. We implemented a <strong>Database-Grounded RAG Architecture</strong>: Express queries MongoDB for real, verified destination tariffs and room rates first, then feeds this grounded context to Gemini.
+      </div>
+    </div>
+  </div>
+
+  <div class="qa-card">
+    <div class="question">Q2: How do you handle State Management across React components?</div>
+    <div class="answer">
+      We use React <strong>Context API</strong> split into domain contexts: <code>AuthContext</code> (User login session & checklist state) and <code>SavedContext</code> (Favorites, saved plans, and venue compare matrix). This prevents unnecessary prop drilling while keeping state scoped.
+    </div>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="section-title">🧠 Section 2: Generative AI & Prompt Engineering</div>
+
+  <div class="qa-card">
+    <div class="question">Q3: How do you ensure Google Gemini returns strict JSON instead of conversational text?</div>
+    <div class="answer">
+      We pass <code>responseMimeType: 'application/json'</code> in the Gemini model config object. Additionally, our backend Node.js service uses a regex sanitizer to strip accidental markdown backticks before calling <code>JSON.parse()</code>.
+    </div>
+    <div class="counter-box">
+      <div class="counter-title">💣 Interviewer Counter-Question: "What happens if Gemini API key fails or experiences high demand (HTTP 503)?"</div>
+      <div class="counter-answer">
+        The application is <strong>fault-tolerant</strong>. We designed a fallback service layer: if the Gemini API throws a quota or rate-limit error, our backend intercepts it, extracts top matching records from MongoDB, and serves pre-curated responses and photography fallbacks without crashing the UI.
+      </div>
+    </div>
+  </div>
+
+  <div class="qa-card">
+    <div class="question">Q4: How does the AI Wedding Visualizer image engine work?</div>
+    <div class="answer">
+      The visualizer converts user inputs (Destination, Ceremony style, Lighting, Palette) into a luxury editorial photography prompt and calls <code>gemini-3.1-flash-image</code> via <code>@google/genai</code>. The base64 or inline image URL is returned to the client alongside an AI concept visualization disclaimer.
+    </div>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div class="section-title">💰 Section 3: Financial Engine & Database Design</div>
+
+  <div class="qa-card">
+    <div class="question">Q5: Is the Budget Calculator calculated by AI or mathematically?</div>
+    <div class="answer">
+      It is a <strong>hybrid deterministic engine</strong>. Math calculation must never be left purely to an LLM.
+      1. <strong>Deterministic Math</strong>: <code>budget.service.js</code> calculates exact costs for venue daily tariffs, room nights, plate cost × guests × functions, decor, media, planner fee (10%), GST taxes (18%), and contingency (5%).
+      2. <strong>AI Optimization</strong>: Calculated numeric tiers are passed to Gemini to generate actionable cost-saving tips.
+    </div>
+  </div>
+
+  <div class="qa-card">
+    <div class="question">Q6: How are database schemas indexed in MongoDB for fast destination searching?</div>
+    <div class="answer">
+      In <code>Destination.js</code>, we created compound indexes on <code>slug</code>, <code>state</code>, <code>region</code>, <code>budgetRange.min</code>, <code>budgetRange.max</code>, and text search indexes on <code>name</code>, <code>state</code>, <code>description</code>. This accelerates multi-filtering queries.
+    </div>
+  </div>
+
+  <!-- SECTION 4 -->
+  <div class="section-title">🔒 Section 4: Authentication & Security</div>
+
+  <div class="qa-card">
+    <div class="question">Q7: Why store JWT tokens in HttpOnly cookies instead of localStorage?</div>
+    <div class="answer">
+      <code>localStorage</code> is vulnerable to <strong>Cross-Site Scripting (XSS)</strong> attacks where malicious scripts can read tokens. HttpOnly cookies cannot be accessed via client JavaScript (<code>document.cookie</code>), ensuring protection against token theft.
+    </div>
+  </div>
+
+  <!-- SUMMARY TABLE -->
+  <div class="section-title">📋 Summary Cheatsheet</div>
+  <table class="cheatsheet-table">
+    <thead>
+      <tr>
+        <th>Topic</th>
+        <th>Key Terminology to Mention in Interview</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Architecture</strong></td>
+        <td>Full-Stack MERN, Separation of Concerns, RESTful API, Decoupled Architecture</td>
+      </tr>
+      <tr>
+        <td><strong>AI Integration</strong></td>
+        <td>Database-Grounded RAG, Gemini 3.7 Flash, Gemini 3.1 Flash Image, JSON Mime Type</td>
+      </tr>
+      <tr>
+        <td><strong>Budget Engine</strong></td>
+        <td>Hybrid Deterministic Engine, Category Percentage Weights, GST & Contingency Buffers</td>
+      </tr>
+      <tr>
+        <td><strong>Security</strong></td>
+        <td>HttpOnly Cookies, JWT, bcryptjs, Helmet, Express Rate Limiter, Role-Based Access Control</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div style="text-align:center; margin-top:30px; font-size:11px; color:#766A64;">
+    VivahaVerse AI – Master Technical Interview Guide • <strong>Created by Wibe Coding</strong>
+  </div>
+
+</body>
+</html>
